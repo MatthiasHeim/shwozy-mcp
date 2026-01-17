@@ -1,0 +1,44 @@
+{
+  "name": "shwozy-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Shwozy voice notes - query and manage action outputs",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "shwozy-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "src/public"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js && cp -r src/public dist/",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "dev:stdio": "MCP_TRANSPORT=stdio tsx src/index.ts",
+    "inspect": "MCP_TRANSPORT=stdio npx @modelcontextprotocol/inspector node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@supabase/supabase-js": "^2.90.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^20.11.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shwozy MCP - Connect Your Voice Notes to Claude</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coral: #FF6B6B;
+      --soft-purple: #9B8AFF;
+      --mint: #4ECDC4;
+      --deep-navy: #1A1A2E;
+      --cream: #FAFAF8;
+      --warm-gray: #6B7280;
+      --coral-light: #FFE5E5;
+      --purple-light: #EDE9FF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--deep-navy);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--purple-light) 50%, var(--coral-light) 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='40' viewBox='0 0 100 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q25 5 50 20 T100 20' fill='none' stroke='%239B8AFF' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      animation: wave 20s linear infinite;
+    }
+
+    @keyframes wave {
+      0% { background-position: 0 0; }
+      100% { background-position: 200px 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--soft-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      color: var(--warm-gray);
+      max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--coral);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255, 107, 107, 0.4);
+    }
+
+    /* Product Section */
+    .product-section {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--warm-gray);
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      background: var(--cream);
+      padding: 32px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(26, 26, 46, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--warm-gray);
+      font-size: 0.95rem;
+    }
+
+    /* How it Works */
+    .how-it-works {
+      padding: 80px 0;
+      background: linear-gradient(180deg, white 0%, var(--cream) 100%);
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 48px;
+    }
+
+    .step {
+      text-align: center;
+      max-width: 280px;
+      position: relative;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: var(--soft-purple);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+
+    .step h3 {
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      color: var(--warm-gray);
+      font-size: 0.95rem;
+    }
+
+    .step-arrow {
+      position: absolute;
+      right: -30px;
+      top: 30px;
+      font-size: 1.5rem;
+      color: var(--soft-purple);
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .step-arrow {
+        display: block;
+      }
+      .step:last-child .step-arrow {
+        display: none;
+      }
+    }
+
+    /* Setup Section */
+    .setup-section {
+      padding: 80px 0;
+      background: var(--deep-navy);
+      color: white;
+    }
+
+    .setup-section .section-title {
+      color: white;
+    }
+
+    .setup-section .section-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .setup-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .setup-steps {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .setup-step {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .setup-step h3 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+
+    .setup-step h3 span {
+      background: var(--coral);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .setup-step p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    /* Config Generator */
+    .config-generator {
+      grid-column: 1 / -1;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 32px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .config-generator h3 {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 24px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-family: 'Fira Code', monospace;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--coral);
+    }
+
+    .config-output {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .config-output pre {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--mint);
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin: 0;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--coral);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .copy-button:hover {
+      background: #ff5252;
+    }
+
+    .copy-button.copied {
+      background: var(--mint);
+    }
+
+    /* Store Badges */
+    .store-badges {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      cursor: not-allowed;
+    }
+
+    .store-badge:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .store-badge svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      background: var(--deep-navy);
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    footer a {
+      color: var(--coral);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .tagline {
+      font-style: italic;
+      margin-top: 16px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        min-height: 70vh;
+        padding: 40px 0;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>Your voice, Claude's memory</h1>
+      <p>Connect your Shwozy voice notes to Claude Code. Tasks extracted, actions executed.</p>
+      <a href="#setup" class="cta-button">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Product Section -->
+  <section class="product-section">
+    <div class="container">
+      <h2 class="section-title">What is Shwozy?</h2>
+      <p class="section-subtitle">
+        Record voice notes on your phone, let AI extract structured actions with custom prompts,
+        and connect it all to Claude Code for seamless task execution.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>List Pending Actions</h3>
+          <p>Query all unexecuted voice note outputs. See what tasks are waiting for you.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Get Full Details</h3>
+          <p>Retrieve complete output data, transcripts, and metadata for any action.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✅</div>
+          <h3>Mark Complete</h3>
+          <p>Track what you've acted on. Keep your action queue clean and organized.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Search Recordings</h3>
+          <p>Find specific voice notes by title. Quick access to any recording.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it Works -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How it Works</h2>
+      <p class="section-subtitle">Three simple steps to voice-powered productivity</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Record in Shwozy</h3>
+          <p>Capture voice notes on your phone. Select an AI action to process them.</p>
+          <span class="step-arrow">→</span>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>AI Extracts Actions</h3>
+          <p>Gemini processes your audio with custom prompts, generating structured outputs.</p>
+          <span class="step-arrow">→</span>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Claude Executes</h3>
+          <p>Ask Claude to check your pending actions and execute them automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Setup Section -->
+  <section class="setup-section" id="setup">
+    <div class="container">
+      <h2 class="section-title">Connect to Claude Code</h2>
+      <p class="section-subtitle">Get set up in under a minute</p>
+
+      <div class="setup-steps">
+        <div class="setup-step">
+          <h3><span>1</span> Get the Shwozy App</h3>
+          <p>Download Shwozy on your phone to start recording voice notes with AI actions.</p>
+          <div class="store-badges">
+            <span class="store-badge" title="Coming Soon">
+              <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08M12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25"/></svg>
+              App Store - Coming Soon
+            </span>
+            <span class="store-badge" title="Coming Soon">
+              <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83.67-1.5 1.5-1.5h15c.83 0 1.5.67 1.5 1.5v17c0 .83-.67 1.5-1.5 1.5h-15c-.83 0-1.5-.67-1.5-1.5m9.5-12.5L7 14.5h3v4h3v-4h3z"/></svg>
+              Play Store - Coming Soon
+            </span>
+          </div>
+        </div>
+
+        <div class="setup-step">
+          <h3><span>2</span> Generate API Key</h3>
+          <p>In the Shwozy app, go to <strong>Settings → API Keys</strong> and tap "Generate API Key". Copy it - you'll need it below!</p>
+        </div>
+
+        <div class="config-generator">
+          <h3>Generate Your Claude Code Config</h3>
+
+          <div class="input-group">
+            <label for="apiKey">Your Shwozy API Key</label>
+            <input type="text" id="apiKey" placeholder="sk_live_..." autocomplete="off">
+          </div>
+
+          <div class="config-output">
+            <button class="copy-button" onclick="copyConfig()">Copy</button>
+            <pre id="configOutput">{
+  "mcpServers": {
+    "shwozy": {
+      "url": "https://shwozy-mcp-production.up.railway.app/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_KEY_HERE"
+      }
+    }
+  }
+}</pre>
+          </div>
+        </div>
+
+        <div class="setup-step" style="grid-column: 1 / -1; text-align: center;">
+          <h3><span>3</span> Add to Claude Code Settings</h3>
+          <p>
+            Open Claude Code settings (<code>~/.claude/settings.json</code>) and add the MCP server configuration.
+            Then restart Claude Code and you're ready to go!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/yourusername/shwozy-mcp" target="_blank">GitHub</a>
+        <a href="#" target="_blank">Privacy Policy</a>
+        <a href="mailto:support@shwozy.app">Contact</a>
+      </div>
+      <p>&copy; 2024 Shwozy. All rights reserved.</p>
+      <p class="tagline">"Talk it out, let AI sort it out"</p>
+    </div>
+  </footer>
+
+  <script>
+    const apiKeyInput = document.getElementById('apiKey');
+    const configOutput = document.getElementById('configOutput');
+
+    // Get the current host for the MCP URL
+    const mcpUrl = window.location.hostname === 'localhost'
+      ? `http://localhost:${window.location.port || 3000}/mcp`
+      : `${window.location.origin}/mcp`;
+
+    function updateConfig() {
+      const apiKey = apiKeyInput.value.trim() || 'YOUR_API_KEY_HERE';
+
+      const config = {
+        mcpServers: {
+          shwozy: {
+            url: mcpUrl,
+            headers: {
+              Authorization: `Bearer ${apiKey}`
+            }
+          }
+        }
+      };
+
+      configOutput.textContent = JSON.stringify(config, null, 2);
+    }
+
+    apiKeyInput.addEventListener('input', updateConfig);
+
+    // Initialize with current URL
+    updateConfig();
+
+    function copyConfig() {
+      const config = configOutput.textContent;
+      navigator.clipboard.writeText(config).then(() => {
+        const btn = document.querySelector('.copy-button');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
