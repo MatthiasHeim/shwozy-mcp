@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
   <style>
     :root {
+      /* Base colors */
       --coral: #FF6B6B;
       --soft-purple: #9B8AFF;
       --mint: #4ECDC4;
@@ -17,6 +18,217 @@
       --warm-gray: #6B7280;
       --coral-light: #FFE5E5;
       --purple-light: #EDE9FF;
+
+      /* Glow colors for animations */
+      --coral-glow: rgba(255, 107, 107, 0.4);
+      --purple-glow: rgba(155, 138, 255, 0.4);
+      --mint-glow: rgba(78, 205, 196, 0.3);
+
+      /* Gradient colors */
+      --gradient-start: #FF6B6B;
+      --gradient-mid: #9B8AFF;
+      --gradient-end: #4ECDC4;
+
+      /* Glass effect */
+      --glass-bg: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.5);
+      --glass-shadow: rgba(31, 38, 135, 0.15);
+
+      /* Animation timings */
+      --transition-fast: 0.2s;
+      --transition-normal: 0.3s;
+      --transition-slow: 0.6s;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Animation Keyframes */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% center;
+      }
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+    }
+
+    @keyframes floatReverse {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(20px) rotate(-5deg);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 var(--coral-glow);
+      }
+      50% {
+        box-shadow: 0 0 0 15px rgba(255, 107, 107, 0);
+      }
+    }
+
+    @keyframes pulsePurple {
+      0%, 100% {
+        box-shadow: 0 0 0 0 var(--purple-glow);
+      }
+      50% {
+        box-shadow: 0 0 0 12px rgba(155, 138, 255, 0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(10px);
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 20px var(--coral-glow), 0 0 40px var(--purple-glow);
+      }
+      50% {
+        box-shadow: 0 0 30px var(--coral-glow), 0 0 60px var(--purple-glow);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes drawLine {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes iconBounce {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-5px) scale(1.1);
+      }
+    }
+
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      20%, 60% {
+        transform: translateX(-5px);
+      }
+      40%, 80% {
+        transform: translateX(5px);
+      }
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes waveMove {
+      0% {
+        transform: translateX(0) translateY(0);
+      }
+      50% {
+        transform: translateX(-25px) translateY(5px);
+      }
+      100% {
+        transform: translateX(0) translateY(0);
+      }
+    }
+
+    /* Reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
     }
 
     * {
@@ -30,6 +242,13 @@
       background: var(--cream);
       color: var(--deep-navy);
       line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Selection highlight */
+    ::selection {
+      background: var(--coral-glow);
+      color: var(--deep-navy);
     }
 
     .container {
@@ -40,46 +259,96 @@
 
     /* Hero Section */
     .hero {
-      min-height: 80vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--cream) 0%, var(--purple-light) 50%, var(--coral-light) 100%);
+      background: linear-gradient(135deg, var(--cream) 0%, var(--purple-light) 40%, var(--coral-light) 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 15s ease infinite;
+    }
+
+    /* Floating gradient orbs */
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.6;
+      pointer-events: none;
     }
 
     .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg width='100' height='40' viewBox='0 0 100 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 Q25 5 50 20 T100 20' fill='none' stroke='%239B8AFF' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      animation: wave 20s linear infinite;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--coral-glow) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite;
     }
 
-    @keyframes wave {
-      0% { background-position: 0 0; }
-      100% { background-position: 200px 0; }
+    .hero::after {
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, var(--purple-glow) 0%, transparent 70%);
+      bottom: -50px;
+      left: -100px;
+      animation: floatReverse 10s ease-in-out infinite;
+    }
+
+    /* Animated waveform background */
+    .hero-waves {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-waves svg {
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+      height: 100%;
+    }
+
+    .hero-waves .wave-1 {
+      animation: waveMove 7s ease-in-out infinite;
+      opacity: 0.3;
+    }
+
+    .hero-waves .wave-2 {
+      animation: waveMove 5s ease-in-out infinite reverse;
+      opacity: 0.2;
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 10;
+      animation: fadeInUp 0.8s var(--ease-out-expo) forwards;
     }
 
     .hero h1 {
       font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 700;
       margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--coral) 0%, var(--soft-purple) 100%);
+      background: linear-gradient(
+        135deg,
+        var(--coral) 0%,
+        var(--soft-purple) 50%,
+        var(--coral) 100%
+      );
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: shimmer 3s linear infinite;
     }
 
     .hero p {
@@ -87,24 +356,101 @@
       color: var(--warm-gray);
       max-width: 600px;
       margin: 0 auto 32px;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-out-expo) 0.2s forwards;
     }
 
     .cta-button {
       display: inline-block;
-      background: var(--coral);
+      background: linear-gradient(135deg, var(--coral) 0%, #ff8585 100%);
       color: white;
       padding: 16px 32px;
       border-radius: 12px;
       text-decoration: none;
       font-weight: 600;
       font-size: 1.1rem;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+      transition: all var(--transition-normal) var(--ease-out-expo);
+      box-shadow: 0 4px 20px var(--coral-glow);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-out-expo) 0.4s forwards, pulse 2s ease-in-out 1s infinite;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
     }
 
     .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(255, 107, 107, 0.4);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 40px var(--coral-glow);
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: fadeInUp 0.8s var(--ease-out-expo) 0.8s forwards, bounce 2s ease-in-out 1.5s infinite;
+      z-index: 10;
+    }
+
+    .scroll-indicator svg {
+      width: 30px;
+      height: 30px;
+      stroke: var(--warm-gray);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    /* Scroll-driven reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity var(--transition-slow) var(--ease-out-expo),
+                  transform var(--transition-slow) var(--ease-out-expo);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered delays for feature cards */
+    .reveal-stagger-1 { transition-delay: 0s; }
+    .reveal-stagger-2 { transition-delay: 0.1s; }
+    .reveal-stagger-3 { transition-delay: 0.2s; }
+    .reveal-stagger-4 { transition-delay: 0.3s; }
+
+    /* Sequential reveal for steps */
+    .reveal-step-1 { transition-delay: 0s; }
+    .reveal-step-2 { transition-delay: 0.2s; }
+    .reveal-step-3 { transition-delay: 0.4s; }
+
+    /* Section title reveal */
+    .section-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s var(--ease-out-expo),
+                  transform 0.5s var(--ease-out-expo);
+    }
+
+    .section-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Product Section */
@@ -135,30 +481,67 @@
     }
 
     .feature-card {
-      background: var(--cream);
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       padding: 32px;
       border-radius: 20px;
-      transition: all 0.3s ease;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 32px var(--glass-shadow);
+      transition: all var(--transition-normal) var(--ease-out-expo);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Gradient border effect */
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--coral-glow), var(--purple-glow), var(--mint-glow));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity var(--transition-normal) ease;
     }
 
     .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(26, 26, 46, 0.1);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 50px var(--glass-shadow), 0 0 30px var(--purple-glow);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
     }
 
     .feature-icon {
       font-size: 2.5rem;
       margin-bottom: 16px;
+      display: inline-block;
+      transition: transform var(--transition-normal) var(--ease-out-expo);
+    }
+
+    .feature-card:hover .feature-icon {
+      animation: iconBounce 0.6s var(--ease-out-expo);
     }
 
     .feature-card h3 {
       font-size: 1.2rem;
       margin-bottom: 8px;
+      font-weight: 600;
     }
 
     .feature-card p {
       color: var(--warm-gray);
       font-size: 0.95rem;
+      line-height: 1.6;
     }
 
     /* How it Works */
@@ -171,20 +554,22 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 40px;
+      gap: 60px;
       margin-top: 48px;
+      position: relative;
     }
 
     .step {
       text-align: center;
       max-width: 280px;
       position: relative;
+      padding: 20px;
     }
 
     .step-number {
-      width: 60px;
-      height: 60px;
-      background: var(--soft-purple);
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--soft-purple) 0%, var(--coral) 100%);
       color: white;
       border-radius: 50%;
       display: flex;
@@ -193,24 +578,62 @@
       font-size: 1.5rem;
       font-weight: 700;
       margin: 0 auto 20px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 8px 25px var(--purple-glow);
+      transition: transform var(--transition-normal) var(--ease-out-expo);
+    }
+
+    /* Pulse animation ring */
+    .step-number::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 50%;
+      border: 2px solid var(--soft-purple);
+      opacity: 0;
+      animation: pulsePurple 2s ease-in-out infinite;
+    }
+
+    .step.visible .step-number::after {
+      opacity: 1;
+    }
+
+    .step:hover .step-number {
+      transform: scale(1.1);
     }
 
     .step h3 {
       margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--deep-navy);
     }
 
     .step p {
       color: var(--warm-gray);
       font-size: 0.95rem;
+      line-height: 1.6;
     }
 
+    /* Animated connecting arrow */
     .step-arrow {
       position: absolute;
-      right: -30px;
-      top: 30px;
-      font-size: 1.5rem;
+      right: -45px;
+      top: 35px;
+      font-size: 1.8rem;
       color: var(--soft-purple);
       display: none;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .step.visible .step-arrow {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     @media (min-width: 768px) {
@@ -286,15 +709,32 @@
     /* Config Generator */
     .config-generator {
       grid-column: 1 / -1;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 32px;
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 40px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle gradient overlay */
+    .config-generator::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--coral-glow), var(--purple-glow), transparent);
     }
 
     .config-generator h3 {
       margin-bottom: 24px;
       text-align: center;
+      font-size: 1.3rem;
     }
 
     .input-group {
@@ -310,14 +750,14 @@
 
     .input-group input {
       width: 100%;
-      padding: 16px;
+      padding: 16px 20px;
       border-radius: 12px;
       border: 2px solid rgba(255, 255, 255, 0.2);
       background: rgba(255, 255, 255, 0.05);
       color: white;
       font-family: 'Fira Code', monospace;
       font-size: 1rem;
-      transition: border-color 0.3s ease;
+      transition: all var(--transition-normal) var(--ease-out-expo);
     }
 
     .input-group input::placeholder {
@@ -327,13 +767,26 @@
     .input-group input:focus {
       outline: none;
       border-color: var(--coral);
+      box-shadow: 0 0 0 4px var(--coral-glow), 0 0 20px var(--coral-glow);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Shake animation for invalid input */
+    .input-group input.shake {
+      animation: shake 0.5s ease-in-out;
     }
 
     .config-output {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      padding: 24px;
       position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: border-color var(--transition-normal) ease;
+    }
+
+    .config-output:hover {
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
     .config-output pre {
@@ -343,28 +796,63 @@
       white-space: pre-wrap;
       word-break: break-all;
       margin: 0;
+      line-height: 1.8;
     }
 
     .copy-button {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      background: var(--coral);
+      top: 16px;
+      right: 16px;
+      background: linear-gradient(135deg, var(--coral) 0%, #ff8585 100%);
       color: white;
       border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all var(--transition-normal) var(--ease-out-expo);
+      box-shadow: 0 4px 15px var(--coral-glow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .copy-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.4s ease;
     }
 
     .copy-button:hover {
-      background: #ff5252;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--coral-glow);
+    }
+
+    .copy-button:hover::before {
+      left: 100%;
     }
 
     .copy-button.copied {
-      background: var(--mint);
+      background: linear-gradient(135deg, var(--mint) 0%, #6dd5c8 100%);
+      box-shadow: 0 4px 15px var(--mint-glow);
+      transform: scale(1.05);
+    }
+
+    /* Success sparkle effect */
+    .copy-button.copied::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+      transform: translate(-50%, -50%) scale(0);
+      animation: sparkle 0.6s ease-out;
     }
 
     /* Store Badges */
@@ -379,55 +867,115 @@
     .store-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.1);
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.08);
       color: rgba(255, 255, 255, 0.7);
-      padding: 12px 20px;
-      border-radius: 10px;
+      padding: 14px 24px;
+      border-radius: 12px;
       text-decoration: none;
       font-size: 0.9rem;
-      transition: all 0.3s ease;
+      font-weight: 500;
+      transition: all var(--transition-normal) var(--ease-out-expo);
       cursor: not-allowed;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .store-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
     }
 
     .store-badge:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .store-badge:hover::before {
+      left: 100%;
     }
 
     .store-badge svg {
       width: 24px;
       height: 24px;
       fill: currentColor;
+      transition: transform var(--transition-normal) ease;
+    }
+
+    .store-badge:hover svg {
+      transform: scale(1.1);
     }
 
     /* Footer */
     footer {
-      padding: 40px 0;
+      padding: 60px 0 40px;
       background: var(--deep-navy);
       color: rgba(255, 255, 255, 0.6);
       text-align: center;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple-glow), var(--coral-glow), transparent);
     }
 
     footer a {
       color: var(--coral);
       text-decoration: none;
+      transition: all var(--transition-fast) ease;
+      position: relative;
+    }
+
+    footer a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--coral);
+      transition: width var(--transition-normal) var(--ease-out-expo);
     }
 
     footer a:hover {
-      text-decoration: underline;
+      color: #ff8585;
+    }
+
+    footer a:hover::after {
+      width: 100%;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 24px;
-      margin-bottom: 16px;
+      gap: 32px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      font-weight: 500;
     }
 
     .tagline {
       font-style: italic;
-      margin-top: 16px;
+      margin-top: 20px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.95rem;
     }
 
     /* Responsive */
@@ -451,39 +999,69 @@
 <body>
   <!-- Hero Section -->
   <section class="hero">
+    <!-- Animated waveform background -->
+    <div class="hero-waves">
+      <svg class="wave-1" viewBox="0 0 1200 200" preserveAspectRatio="none">
+        <path d="M0,100 C150,150 350,50 500,100 C650,150 850,50 1000,100 C1150,150 1200,100 1200,100 L1200,200 L0,200 Z" fill="url(#waveGradient1)"/>
+        <defs>
+          <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(155, 138, 255, 0.3)"/>
+            <stop offset="50%" style="stop-color:rgba(255, 107, 107, 0.2)"/>
+            <stop offset="100%" style="stop-color:rgba(78, 205, 196, 0.3)"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg class="wave-2" viewBox="0 0 1200 200" preserveAspectRatio="none">
+        <path d="M0,120 C200,80 400,160 600,120 C800,80 1000,160 1200,120 L1200,200 L0,200 Z" fill="url(#waveGradient2)"/>
+        <defs>
+          <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:rgba(78, 205, 196, 0.2)"/>
+            <stop offset="100%" style="stop-color:rgba(155, 138, 255, 0.2)"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
     <div class="container hero-content">
       <h1>Your voice, Claude's memory</h1>
       <p>Connect your Shwozy voice notes to Claude Code. Tasks extracted, actions executed.</p>
       <a href="#setup" class="cta-button">Get Started</a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 5L12 19M12 19L5 12M12 19L19 12" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
   </section>
 
   <!-- Product Section -->
   <section class="product-section">
     <div class="container">
-      <h2 class="section-title">What is Shwozy?</h2>
-      <p class="section-subtitle">
+      <h2 class="section-title section-reveal">What is Shwozy?</h2>
+      <p class="section-subtitle section-reveal">
         Record voice notes on your phone, let AI extract structured actions with custom prompts,
         and connect it all to Claude Code for seamless task execution.
       </p>
 
       <div class="features-grid">
-        <div class="feature-card">
+        <div class="feature-card reveal reveal-stagger-1">
           <div class="feature-icon">🎯</div>
           <h3>List Pending Actions</h3>
           <p>Query all unexecuted voice note outputs. See what tasks are waiting for you.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card reveal reveal-stagger-2">
           <div class="feature-icon">📋</div>
           <h3>Get Full Details</h3>
           <p>Retrieve complete output data, transcripts, and metadata for any action.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card reveal reveal-stagger-3">
           <div class="feature-icon">✅</div>
           <h3>Mark Complete</h3>
           <p>Track what you've acted on. Keep your action queue clean and organized.</p>
         </div>
-        <div class="feature-card">
+        <div class="feature-card reveal reveal-stagger-4">
           <div class="feature-icon">🔍</div>
           <h3>Search Recordings</h3>
           <p>Find specific voice notes by title. Quick access to any recording.</p>
@@ -495,23 +1073,23 @@
   <!-- How it Works -->
   <section class="how-it-works">
     <div class="container">
-      <h2 class="section-title">How it Works</h2>
-      <p class="section-subtitle">Three simple steps to voice-powered productivity</p>
+      <h2 class="section-title section-reveal">How it Works</h2>
+      <p class="section-subtitle section-reveal">Three simple steps to voice-powered productivity</p>
 
       <div class="steps">
-        <div class="step">
+        <div class="step reveal reveal-step-1">
           <div class="step-number">1</div>
           <h3>Record in Shwozy</h3>
           <p>Capture voice notes on your phone. Select an AI action to process them.</p>
           <span class="step-arrow">→</span>
         </div>
-        <div class="step">
+        <div class="step reveal reveal-step-2">
           <div class="step-number">2</div>
           <h3>AI Extracts Actions</h3>
           <p>Gemini processes your audio with custom prompts, generating structured outputs.</p>
           <span class="step-arrow">→</span>
         </div>
-        <div class="step">
+        <div class="step reveal reveal-step-3">
           <div class="step-number">3</div>
           <h3>Claude Executes</h3>
           <p>Ask Claude to check your pending actions and execute them automatically.</p>
@@ -523,8 +1101,8 @@
   <!-- Setup Section -->
   <section class="setup-section" id="setup">
     <div class="container">
-      <h2 class="section-title">Connect to Claude Code</h2>
-      <p class="section-subtitle">Get set up in under a minute</p>
+      <h2 class="section-title section-reveal">Connect to Claude Code</h2>
+      <p class="section-subtitle section-reveal">Get set up in under a minute</p>
 
       <div class="setup-steps">
         <div class="setup-step">
@@ -595,6 +1173,26 @@
   </footer>
 
   <script>
+    // Scroll reveal animation using Intersection Observer
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Optionally unobserve after revealing
+          // revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observe all reveal elements
+    document.querySelectorAll('.reveal, .section-reveal').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // Config generator functionality
     const apiKeyInput = document.getElementById('apiKey');
     const configOutput = document.getElementById('configOutput');
 
